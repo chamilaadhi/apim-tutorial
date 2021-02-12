@@ -1,0 +1,22 @@
+version: '2.4'
+services:
+    api-manager:
+      image: wso2am:4.0.0
+      healthcheck:
+        test: ["CMD", "nc", "-z","localhost", "9443"]
+        interval: 10s
+        start_period: 180s
+        retries: 20
+      ports:
+      - "9443:9443"
+      - "8280:8280"
+      - "8243:8243"
+    train-operations-rest-ep:
+      build: ./dockerfiles/backends/rest
+      healthcheck:
+        test: ["CMD", "nc", "-z","localhost", "8080"]
+        interval: 10s
+        start_period: 30s
+        retries: 20
+      ports:
+      - "8081:8081"
