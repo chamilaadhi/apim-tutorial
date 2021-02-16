@@ -51,7 +51,7 @@
 								<artifactItem>
 									<groupId>org.wso2.carbon.apimgt.tutorial</groupId>
 									<artifactId>train-schedule</artifactId>
-									<version>1.0.0</version>
+									<version>${project.version}</version>
 								</artifactItem>
 							</artifactItems>
 							<outputDirectory>../../dockerfiles/backends/rest/</outputDirectory>

@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-java -jar ~/test-ws-0.0.1-SNAPSHOT.jar
+java -jar ~/soap-service-1.0.0.jar
