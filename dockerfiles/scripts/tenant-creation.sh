@@ -43,6 +43,23 @@ function addUserWithRole () {
             </soapenv:Envelope>' --write-out "%{http_code}\n" --silent --output /dev/null 
 }
 
+function addRole () {
+    curl -k -X POST \
+            https://$apim:9443/services/UserAdmin \
+            -u $1:$2 \
+            -H 'Content-Type: text/xml' \
+            -H 'SOAPAction: "urn:addRole"' \
+            -d '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://org.apache.axis2/xsd">
+                <soapenv:Header/>
+                <soapenv:Body>
+                    <xsd:addRole>
+                        <xsd:roleName>'$3'</xsd:roleName>
+                        <xsd:isSharedRole>false</xsd:isSharedRole>
+                    </xsd:addRole>
+                </soapenv:Body>
+                </soapenv:Envelope>' --write-out "%{http_code}\n" --silent --output /dev/null 
+}
+
 # create tenants
 echo "Creating tenant quantis.com"
 create_tenant "admin" "quantis.com" "admin@quantis.com"
@@ -55,9 +72,12 @@ sleep 5
 echo "Creating tenant coltrain.com"
 create_tenant "admin" "coltrain.com" "admin@coltrain.com"
 sleep 5
+echo "Adding roles to coltrain.com domain"
+addRole "admin@coltrain.com" "admin" "schedule_admin"
 echo "Adding sample users to coltrain.com domain"
 addUserWithRole "admin@coltrain.com" "admin" "bill" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@coltrain.com" "admin" "george" "Internal/subscriber" "Internal/everyone"
+addUserWithRole "admin@coltrain.com" "admin" "jenny" "Internal/subscriber" "schedule_admin"
 sleep 5
 ###
 echo "Creating tenant railco.com"

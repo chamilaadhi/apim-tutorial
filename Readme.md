@@ -29,9 +29,17 @@ This repo contains resources that are needed to demo the API Manager 4.0.0 tutor
    
 run following command to start the environment
 
-    docker-compose up
+    docker-compose up -d
 
 This will start WSO2 API Manager 4.0.0 and WSO2 MI 4.0.0 and a sample REST API backend.
+
+To view the logs 
+
+    docker-compose logs -f
+
+Once you are done with the demo, use 
+
+     docker-compose down
 
 ## Demo
 
