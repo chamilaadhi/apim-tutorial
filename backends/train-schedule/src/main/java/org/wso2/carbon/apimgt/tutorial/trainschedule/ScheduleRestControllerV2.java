@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = { "*" })
-@RequestMapping({ "/train-operations/v2" })
+@RequestMapping({ "/v2" })
 public class ScheduleRestControllerV2 {
 	ScheduleManager manager = new ScheduleManager();
 

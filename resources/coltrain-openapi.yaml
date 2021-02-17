@@ -5,7 +5,7 @@ info:
     This is the API definition for the Train operations supported by the backend
   version: 1.0.0
 servers:
-  - url: http://train-operations-rest-ep:8081/train-operations/v1
+  - url: http://backend-service:8080/train-operations/v1
 paths:
   /schedules:
     get:

@@ -11,27 +11,21 @@ services:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
-#    mi:
-#      image: wso2mi:4.0.0
-#      healthcheck:
-#        test: ["CMD", "nc", "-z","localhost", "8290"]
-#        interval: 10s
-#        start_period: 60s
-#        retries: 20
-#      ports:
-#      - "8253:8253"
-#      - "8290:8290"
-    train-operations-rest-ep:
-      build: ./dockerfiles/backends/rest
+    mi:
+      image: wso2mi:4.0.0
       healthcheck:
-        test: ["CMD", "nc", "-z","localhost", "8081"]
+        test: ["CMD", "nc", "-z","localhost", "8290"]
         interval: 10s
-        start_period: 30s
+        start_period: 60s
         retries: 20
       ports:
-      - "8081:8081"
-    onboard-entertainment-soap-ep:
-      build: ./dockerfiles/backends/soap
+      - "8253:8253"
+      - "8290:8290"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
+    backend-service:
+      build: ./dockerfiles/backends/
       healthcheck:
         test: ["CMD", "nc", "-z","localhost", "8080"]
         interval: 10s
@@ -39,5 +33,11 @@ services:
         retries: 20
       ports:
       - "8082:8080"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
     scripts:
       build: ./dockerfiles/scripts
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
