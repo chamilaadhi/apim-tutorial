@@ -60,6 +60,113 @@ function addRole () {
                 </soapenv:Envelope>' --write-out "%{http_code}\n" --silent --output /dev/null 
 }
 
+function enableSignup(){
+curl -X POST \
+  https://$apim:9443/services/ResourceAdminService \
+  -u $1:$2 \
+  -H 'Content-Type: application/soap+xml;charset=UTF-8;action=\"urn:updateTextContent\"' \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://services.resource.registry.carbon.wso2.org">
+   <soap:Header />
+   <soap:Body>
+      <ser:updateTextContent>
+         <ser:resourcePath>/_system/governance/apimgt/applicationdata/sign-up-config.xml</ser:resourcePath>
+         <ser:contentText>&lt;SelfSignUp&gt;
+
+    &lt;EnableSignup&gt;true&lt;/EnableSignup&gt;
+
+    &lt;!-- user storage to store users --&gt;
+    &lt;SignUpDomain&gt;PRIMARY&lt;/SignUpDomain&gt;
+
+    &lt;!-- Tenant admin information. (for clustered setup credentials for AuthManager) --&gt;
+    &lt;AdminUserName&gt;'$1'&lt;/AdminUserName&gt;
+    &lt;AdminPassword&gt;'$2'&lt;/AdminPassword&gt;
+
+    &lt;!-- List of roles for the tenant user --&gt;
+    &lt;SignUpRoles&gt;
+        &lt;SignUpRole&gt;
+            &lt;RoleName&gt;subscriber&lt;/RoleName&gt;
+            &lt;IsExternalRole&gt;false&lt;/IsExternalRole&gt;
+        &lt;/SignUpRole&gt;
+    &lt;/SignUpRoles&gt;
+
+&lt;/SelfSignUp&gt;</ser:contentText>
+      </ser:updateTextContent>
+   </soap:Body>
+</soap:Envelope>' -k
+}
+
+function enableSingupWorkflow() {
+    curl -X POST \
+  https://$apim:9443/services/ResourceAdminService \
+  -u $1:$2 \
+  -H 'Content-Type: application/soap+xml;charset=UTF-8;action=\"urn:updateTextContent\"' \
+  -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://services.resource.registry.carbon.wso2.org">
+   <soap:Header/>
+   <soap:Body>
+      <ser:updateTextContent>
+         <ser:resourcePath>/_system/governance/apimgt/applicationdata/workflow-extensions.xml</ser:resourcePath>
+          <ser:contentText>
+
+&lt;WorkFlowExtensions&gt;
+    &lt;ApplicationCreation executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationCreationSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--ApplicationCreation executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationCreationApprovalWorkflowExecutor&quot;/--&gt;
+    &lt;ProductionApplicationRegistration executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationRegistrationSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--ProductionApplicationRegistration executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationRegistrationApprovalWorkflowExecutor&quot;/--&gt;
+    &lt;SandboxApplicationRegistration executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationRegistrationSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--SandboxApplicationRegistration executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationRegistrationApprovalWorkflowExecutor&quot;/--&gt;
+    &lt;SubscriptionCreation executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionCreationSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--SubscriptionCreation executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionCreationApprovalWorkflowExecutor&quot;/--&gt;
+
+    &lt;SubscriptionUpdate executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionUpdateSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--SubscriptionUpdate executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionUpdateApprovalWorkflowExecutor&quot;/--&gt;
+    &lt;!--SubscriptionUpdate executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionUpdateWSWorkflowExecutor&quot;&gt;
+         &lt;Property name=&quot;serviceEndpoint&quot;&gt;http://localhost:9765/services/SubscriptionApprovalWorkFlowProcess/&lt;/Property&gt;
+         &lt;Property name=&quot;username&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;password&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;callbackURL&quot;&gt;https://localhost:8243/services/WorkflowCallbackService&lt;/Property&gt;
+    &lt;/SubscriptionUpdate--&gt;
+    &lt;!--UserSignUp executor=&quot;org.wso2.carbon.apimgt.impl.workflow.UserSignUpSimpleWorkflowExecutor&quot;/--&gt;
+    &lt;UserSignUp executor=&quot;org.wso2.carbon.apimgt.impl.workflow.UserSignUpApprovalWorkflowExecutor&quot;/&gt;
+
+  &lt;!--
+  ***NOTE:***
+        Users of deletion workflows are expected to implement their own deletion workflow executors and services.
+        By default API Manager only implements the core functionalities required to support deletion workflows and
+        simple deletion workflow executors. Default WS deletion workflow implementations are not available with the
+        distribution.
+    --&gt;
+
+    &lt;SubscriptionDeletion executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionDeletionSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--SubscriptionDeletion executor=&quot;org.wso2.carbon.apimgt.impl.workflow.SubscriptionDeletionSimpleWorkflowExecutor&quot;&gt;
+         &lt;Property name=&quot;serviceEndpoint&quot;&gt;http://localhost:9765/services/SubscriptionApprovalWorkFlowProcess/&lt;/Property&gt;
+         &lt;Property name=&quot;username&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;password&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;callbackURL&quot;&gt;https://localhost:8243/services/WorkflowCallbackService&lt;/Property&gt;
+    &lt;/SubscriptionDeletion --&gt;
+    &lt;ApplicationDeletion executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationDeletionSimpleWorkflowExecutor&quot;/&gt;
+    &lt;!--ApplicationDeletion executor=&quot;org.wso2.carbon.apimgt.impl.workflow.ApplicationDeletionSimpleWorkflowExecutor&quot;&gt;
+         &lt;Property name=&quot;serviceEndpoint&quot;&gt;http://localhost:9765/services/ApplicationApprovalWorkFlowProcess/&lt;/Property&gt;
+         &lt;Property name=&quot;username&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;password&quot;&gt;admin&lt;/Property&gt;
+         &lt;Property name=&quot;callbackURL&quot;&gt;https://localhost:8243/services/WorkflowCallbackService&lt;/Property&gt;
+    &lt;/ApplicationDeletion--&gt;
+    
+    &lt;!-- Publisher related workflows --&gt;
+    &lt;APIStateChange executor=&quot;org.wso2.carbon.apimgt.impl.workflow.APIStateChangeSimpleWorkflowExecutor&quot; /&gt;
+    &lt;!--APIStateChange executor=&quot;org.wso2.carbon.apimgt.impl.workflow.APIStateChangeApprovalWorkflowExecutor&quot;&gt;
+        &lt;Property name=&quot;stateList&quot;&gt;Created:Publish,Published:Block&lt;/Property&gt;
+    &lt;/APIStateChange--&gt;
+
+&lt;/WorkFlowExtensions&gt;
+
+
+    </ser:contentText>
+      </ser:updateTextContent>
+   </soap:Body>
+</soap:Envelope>' -k
+}
+####################################################################################################
 # create tenants
 echo "Creating tenant quantis.com"
 create_tenant "admin" "quantis.com" "admin@quantis.com"
@@ -67,6 +174,9 @@ sleep 5
 echo "Adding sample users to quantis.com domain"
 addUserWithRole "admin@quantis.com" "admin" "andy" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@quantis.com" "admin" "bob" "Internal/subscriber" "Internal/everyone"
+echo "Enable signup and workflow"
+enableSignup "admin@quantis.com" "admin"
+enableSingupWorkflow "admin@quantis.com" "admin"
 sleep 5
 ###
 echo "Creating tenant coltrain.com"
