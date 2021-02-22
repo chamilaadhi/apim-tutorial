@@ -1,0 +1,180 @@
+{
+    "name": "QuantisTrainAPI",
+    "description": "API to get Quantis train schedules",
+    "context": "/t/quantis.com/quantis-schedule",
+    "version": "1.0.0",
+    "provider": "andy@quantis.com",
+    "responseCachingEnabled": false,
+    "cacheTimeout": 300,
+    "destinationStatsEnabled": null,
+    "hasThumbnail": null,
+    "isDefaultVersion": false,
+    "isRevision": false,
+    "revisionedApiId": null,
+    "revisionId": 0,
+    "enableSchemaValidation": false,
+    "enableStore": true,
+    "type": "HTTP",
+    "transport": [
+        "http",
+        "https"
+    ],
+    "tags": [
+        "schedule",
+        "time-table",
+        "train"
+    ],
+    "policies": [
+        "Bronze",
+        "Gold",
+        "Silver",
+        "Unlimited"
+    ],
+    "apiThrottlingPolicy": null,
+    "authorizationHeader": "Authorization",
+    "securityScheme": [
+        "oauth2",
+        "oauth_basic_auth_api_key_mandatory"
+    ],
+    "maxTps": {
+        "production": 500,
+        "sandbox": 500
+    },
+    "visibility": "PUBLIC",
+    "visibleRoles": [],
+    "visibleTenants": [],
+    "endpointSecurity": null,
+    "gatewayEnvironments": [
+        "Production and Sandbox"
+    ],
+    "deploymentEnvironments": [],
+    "labels": [],
+    "mediationPolicies": [],
+    "subscriptionAvailability": "CURRENT_TENANT",
+    "subscriptionAvailableTenants": [],
+    "additionalProperties": {},
+    "monetization": null,
+    "accessControl": "NONE",
+    "accessControlRoles": [],
+    "businessInformation": {
+        "businessOwner": "Andy ",
+        "businessOwnerEmail": "andy@quantis.com",
+        "technicalOwner": "Mary",
+        "technicalOwnerEmail": "mary@quantis.com"
+    },
+    "corsConfiguration": {
+        "corsConfigurationEnabled": false,
+        "accessControlAllowOrigins": [
+            "*"
+        ],
+        "accessControlAllowCredentials": false,
+        "accessControlAllowHeaders": [
+            "authorization",
+            "Access-Control-Allow-Origin",
+            "Content-Type",
+            "SOAPAction",
+            "apikey",
+            "testKey"
+        ],
+        "accessControlAllowMethods": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE",
+            "PATCH",
+            "OPTIONS"
+        ]
+    },
+    "websubSubscriptionConfiguration": {
+        "secret": "",
+        "signingAlgorithm": "SHA-256",
+        "signatureHeader": "x-hub-signature"
+    },
+    "workflowStatus": null,
+    "createdTime": "2021-02-22 16:27:50.067",
+    "lastUpdatedTime": "2021-02-22 16:27:50.38",
+    "endpointConfig": {
+        "endpoint_type": "http",
+        "sandbox_endpoints": {
+            "url": "http://backend-service:8080/train-operations/v1"
+        },
+        "production_endpoints": {
+            "url": "http://backend-service:8080/train-operations/v1"
+        }
+    },
+    "endpointImplementationType": "ENDPOINT",
+    "scopes": [],
+    "operations": [
+        {
+            "id": "",
+            "target": "/schedules",
+            "verb": "GET",
+            "authType": "Application & Application User",
+            "throttlingPolicy": "Unlimited",
+            "scopes": [],
+            "usedProductIds": [],
+            "amznResourceName": null,
+            "amznResourceTimeout": null,
+            "payloadSchema": null,
+            "uriMapping": null
+        },
+        {
+            "id": "",
+            "target": "/schedules",
+            "verb": "POST",
+            "authType": "Application & Application User",
+            "throttlingPolicy": "Unlimited",
+            "scopes": [],
+            "usedProductIds": [],
+            "amznResourceName": null,
+            "amznResourceTimeout": null,
+            "payloadSchema": null,
+            "uriMapping": null
+        },
+        {
+            "id": "",
+            "target": "/schedules/{id}",
+            "verb": "GET",
+            "authType": "Application & Application User",
+            "throttlingPolicy": "Unlimited",
+            "scopes": [],
+            "usedProductIds": [],
+            "amznResourceName": null,
+            "amznResourceTimeout": null,
+            "payloadSchema": null,
+            "uriMapping": null
+        },
+        {
+            "id": "",
+            "target": "/schedules/{id}",
+            "verb": "PUT",
+            "authType": "Application & Application User",
+            "throttlingPolicy": "Unlimited",
+            "scopes": [],
+            "usedProductIds": [],
+            "amznResourceName": null,
+            "amznResourceTimeout": null,
+            "payloadSchema": null,
+            "uriMapping": null
+        },
+        {
+            "id": "",
+            "target": "/schedules/{id}",
+            "verb": "DELETE",
+            "authType": "Application & Application User",
+            "throttlingPolicy": "Unlimited",
+            "scopes": [],
+            "usedProductIds": [],
+            "amznResourceName": null,
+            "amznResourceTimeout": null,
+            "payloadSchema": null,
+            "uriMapping": null
+        }
+    ],
+    "threatProtectionPolicies": null,
+    "categories": [],
+    "keyManagers": [
+        "all"
+    ],
+    "serviceInfo": null
+}
