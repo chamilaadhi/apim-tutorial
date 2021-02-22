@@ -34,6 +34,7 @@ rate_and_comment(){
 create_and_publish_api() {
 
     local api_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d @data.json https:///$apim:9443/api/am/publisher/v2/apis | jq -r '.id')
+    local swagger=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F apiDefinition=@swagger.json https://$apim:9443/api/am/publisher/v2/apis/${api_id}/swagger | jq -r '.id')
     local rev_id=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '{"description": "first revision"}' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/revisions | jq -r '.id')
 
     #add image

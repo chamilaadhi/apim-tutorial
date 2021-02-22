@@ -32,4 +32,4 @@ echo "created" >> lock
 
 fi
 
-echo "Done"
+echo "=================================Data population completed======================================================"
