@@ -11,6 +11,8 @@ services:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
+      volumes:
+      - ./dockerfiles/conf/apim:/home/wso2carbon/wso2-config-volume
     mi:
       image: wso2mi:4.0.0
       healthcheck:
