@@ -7,8 +7,12 @@ COPY tenant-creation.sh /
 RUN ["mkdir", "/quantis-resources"]
 COPY quantis-resources/* /quantis-resources/
 
+RUN ["mkdir", "/gogo-resources"]
+COPY gogo-resources/* /gogo-resources/
+
 #CMD ["sh" ,"setup.sh"]
 RUN ["chmod", "+x", "/setup.sh"]
 RUN ["chmod", "+x", "/tenant-creation.sh"]
 RUN ["chmod", "+x", "/quantis-resources/deploy-api.sh"]
+RUN ["chmod", "+x", "/gogo-resources/deploy-api.sh"]
 CMD ["sh", "/setup.sh"]

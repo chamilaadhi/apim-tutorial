@@ -200,3 +200,7 @@ echo "Adding sample users to railco.com domain"
 addUserWithRole "admin@railco.com" "admin" "jill" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@railco.com" "admin" "tom" "Internal/subscriber" "Internal/everyone"
 sleep 5
+
+echo "Adding sample users to super tenant"
+addUserWithRole "admin" "admin" "peter" "Internal/subscriber" "Internal/everyone"
+sleep 5

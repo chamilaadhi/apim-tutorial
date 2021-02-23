@@ -25,6 +25,9 @@ sh tenant-creation.sh
 cd quantis-resources
 sh deploy-api.sh
 
+cd ../gogo-resources
+sh deploy-api.sh
+
 # back to home
 cd ../ 
 # create a file to prevent re-run
