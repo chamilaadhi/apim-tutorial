@@ -7,3 +7,4 @@ target
 .factorypath
 *.DS_Store
 *.mvn
+dockerfiles/scripts/lock
