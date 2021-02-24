@@ -1,17 +1,24 @@
 #!/bin/bash
 
-#APIM host
-apim="api-manager"
-#apim="localhost" #for testing
-export apim
+###### testing
+# export APIM_HOST=localhost RETRY_SEC=10 RE_RUN=true
+######
 
+apim=$APIM_HOST
+export apim
+retry=$RETRY_SEC
+re_run="${RE_RUN:-false}"
 echo "Waiting for WSO2 API Manager to start..."
 
 while ! nc -z $apim 9443; do   
-  echo "Retrying after 5s..."
-  sleep 5
+  echo "Retrying after " $retry "s..."
+  sleep $retry
 done
 
+if [ $re_run == true ]
+then
+   rm lock
+fi
 echo "WSO2 API Manager started"
 
 ## check if already created
