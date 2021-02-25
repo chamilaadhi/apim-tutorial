@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = { "*" })
 @RequestMapping({ "/v1" })
 public class ScheduleRestController {
-	ScheduleManager manager = new ScheduleManager();
+	ScheduleManager manager = ScheduleManager.getManager();
 
 	@RequestMapping(method = { org.springframework.web.bind.annotation.RequestMethod.HEAD })
 	public void handleHead() {

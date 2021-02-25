@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = { "*" })
 @RequestMapping({ "/v2" })
 public class ScheduleRestControllerV2 {
-	ScheduleManager manager = new ScheduleManager();
+	ScheduleManager manager = ScheduleManager.getManager();
 
 	@GetMapping({ "/schedules" })
 	public List<ScheduleEntry> getSchedules() {

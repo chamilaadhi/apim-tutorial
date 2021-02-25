@@ -9,8 +9,17 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ScheduleManager {
 	private final AtomicLong counter = new AtomicLong();
 	private Map<String, ScheduleEntry> map = new ConcurrentHashMap();
+	
+	private static ScheduleManager manager = null;
+	
+	public static ScheduleManager getManager() {
+		if (manager == null) {
+			manager = new ScheduleManager();
+		}
+		return manager;
+	}
 
-	public ScheduleManager() {
+	private ScheduleManager() {
 		String id = Long.toString(this.counter.incrementAndGet());
 		this.map.put(id, new ScheduleEntry(id, "14:50", "19:59", "London", "Glasgow", "Standard"));
 		id = Long.toString(this.counter.incrementAndGet());
