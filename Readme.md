@@ -12,7 +12,7 @@ This repo contains resources that are needed to demo the API Manager 4.0.0 tutor
 1. Download WSO2 API manager from https://github.com/wso2/product-apim/releases (latest milestone)
 2. Copy this pack to `dockerfiles/apim`
 3. Go to `dockerfiles/apim` and open 'Dockerfile' and set the version in `WSO2_SERVER_VERSION` . For example, for milestoer 7 change following
-    ARG WSO2_SERVER_VERSION=4.0.0-m8
+    ARG WSO2_SERVER_VERSION=4.0.0-alpha
 4. Run following command from `dockerfiles/apim` location
     docker build -t wso2am:4.0.0 . 
 
