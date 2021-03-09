@@ -11,18 +11,46 @@ services:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
+      depends_on:
+        mi-runtime:
+          condition: service_healthy 
+        si-runtime:
+          condition: service_healthy
       volumes:
       - ./dockerfiles/conf/apim:/home/wso2carbon/wso2-config-volume
-    mi:
-      image: wso2mi:4.0.0
+    mi-runtime:
+      build: 
+        context: ./dockerfiles/micro-integrator/
+        args:
+          - BASE_IMAGE=wso2/wso2mi:4.0.0-alpha
       healthcheck:
         test: ["CMD", "nc", "-z","localhost", "8290"]
         interval: 10s
-        start_period: 60s
+        start_period: 30s
         retries: 20
       ports:
       - "8253:8253"
       - "8290:8290"
+      - "9201:9201"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
+      depends_on:
+        db:
+          condition: service_healthy
+    si-runtime:
+      build: 
+        context: ./dockerfiles/streaming-integrator/
+        args:
+          - BASE_IMAGE=wso2/wso2si:4.0.0
+      healthcheck:
+        test: ["CMD", "nc", "-z","localhost", "9090"]
+        interval: 10s
+        start_period: 30s
+        retries: 20
+      ports:
+      - "8025:8025"
+      - "9090:9090"
       mem_limit: 512m
       mem_reservation: 128M
       cpus: 0.5
@@ -35,6 +63,25 @@ services:
         retries: 20
       ports:
       - "8082:8080"
+      mem_limit: 512m
+      mem_reservation: 128M
+      cpus: 0.5
+    db:
+      image: mysql:8.0.23
+      ports:
+        - 8083:3306
+      command: --init-file /data/application/init.sql
+      volumes:
+        - ./dockerfiles/database/init.sql:/data/application/init.sql
+      environment:
+        MYSQL_ROOT_PASSWORD: pwd
+        MYSQL_DATABASE: mysql
+      healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
+        interval: 30s
+        timeout: 60s
+        retries: 5
+        start_period: 80s
       mem_limit: 512m
       mem_reservation: 128M
       cpus: 0.5

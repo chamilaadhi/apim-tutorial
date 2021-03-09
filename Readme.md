@@ -18,12 +18,17 @@ This repo contains resources that are needed to demo the API Manager 4.0.0 tutor
 
 ### Build MI 4.0.0 docker image (Only till MI 4.0.0 docker images are released)
 
-1. Download WSO2 MI from https://github.com/wso2/micro-integrator/releases (latest milestone)
-2. Copy this pack to `dockerfiles/mi`
-3. Go to `dockerfiles/mi` and open 'Dockerfile' and set the version in `WSO2_SERVER_VERSION` . For example, for milestoer 7 change following
-    ARG WSO2_SERVER_VERSION=4.0.0-m7
-4. Run following command from `dockerfiles/mi` location
-    docker build -t wso2mi:4.0.0 . 
+1. Go to `docker-compose.yml` and give the below version as argument for mi-runtime service.
+    BASE_IMAGE=wso2/wso2mi:4.0.0-alpha
+
+### Build SI 4.0.0 docker image (Only till SI 4.0.0 docker images are released)
+
+1. Download WSO2 SI from https://github.com/wso2/streaming-integrator/releases (latest milestone)
+2. Copy this pack to `dockerfiles/streaming-integrator/build-image`
+3. Go to `dockerfiles/streaming-integrator/build-image` and open 'Dockerfile' and set the version in `WSO2_SERVER_VERSION` . For example, for alpha change following
+    ARG WSO2_SERVER_VERSION=4.0.0-alpha
+4. Run following command from `dockerfiles/streaming-integrator/build-image` location
+    docker build -t wso2/wso2si:4.0.0 . 
 
 ## Setup
    
