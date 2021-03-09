@@ -1,5 +1,6 @@
 #!/bin/bash
 #apim=localhost
+echo "+++++++++ creating Quantis resources +++++++++++"
 client_request() {
     cat <<EOF
 {

@@ -1,5 +1,6 @@
 #!/bin/bash
 #apim=localhost
+echo "+++++++++ creating RailCo resources +++++++++++"
 client_request() {
     cat <<EOF
 {
@@ -41,12 +42,20 @@ create_and_publish_api() {
     echo $api_id
 }
 
-api_id=$(create_and_publish_api)
-tom_access_token=$(get_access_token 'tom@railco.com' 'user123')
-
 create_app_and_subscribe(){
     local application_id=$(curl -k -H "Authorization: Bearer $tom_access_token" -H "Content-Type: application/json" -X POST -d '{"name":"KeyCloakAPP","throttlingPolicy":"Unlimited","description":"","tokenType":"JWT","groups":null,"attributes":{}}' https://$apim:9443/api/am/devportal/v2/applications | jq -r '.applicationId')
     local sub_id=$(curl -k -H "Authorization: Bearer $tom_access_token" -H "Content-Type: application/json" -X POST -d '{"apiId":"'$api_id'","applicationId":"'$application_id'","throttlingPolicy":"Unlimited"}' https://$apim:9443/api/am/devportal/v2/subscriptions)
 }
 
+cd train/
+
+api_id=$(create_and_publish_api)
+
+cd ../employee/
+
+api_id=$(create_and_publish_api)
+tom_access_token=$(get_access_token 'tom@railco.com' 'user123')
+
 create_app_and_subscribe 
+
+cd ../

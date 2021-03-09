@@ -1,0 +1,174 @@
+{
+    "name": "RailCoEmployeeAPI",
+    "description": null,
+    "context": "/t/railco.com/operations/data/employees",
+    "version": "1.0.0",
+    "provider": "admin@railco.com",
+    "lifeCycleStatus": "PUBLISHED",
+    "wsdlInfo": null,
+    "wsdlUrl": null,
+    "testKey": null,
+    "responseCachingEnabled": false,
+    "cacheTimeout": 300,
+    "destinationStatsEnabled": null,
+    "hasThumbnail": null,
+    "isDefaultVersion": false,
+    "isRevision": false,
+    "revisionedApiId": null,
+    "revisionId": 0,
+    "enableSchemaValidation": false,
+    "enableStore": true,
+    "type": "HTTP",
+    "transport": [
+      "http",
+      "https"
+    ],
+    "tags": [],
+    "policies": [
+      "Unlimited"
+    ],
+    "apiThrottlingPolicy": null,
+    "authorizationHeader": "Authorization",
+    "securityScheme": [
+      "oauth2",
+      "oauth_basic_auth_api_key_mandatory"
+    ],
+    "maxTps": null,
+    "visibility": "PUBLIC",
+    "visibleRoles": [],
+    "visibleTenants": [],
+    "endpointSecurity": null,
+    "gatewayEnvironments": [
+      "Production and Sandbox"
+    ],
+    "deploymentEnvironments": [],
+    "labels": [],
+    "mediationPolicies": [],
+    "subscriptionAvailability": "CURRENT_TENANT",
+    "subscriptionAvailableTenants": [],
+    "additionalProperties": {},
+    "monetization": null,
+    "accessControl": "NONE",
+    "accessControlRoles": [],
+    "businessInformation": {
+      "businessOwner": null,
+      "businessOwnerEmail": null,
+      "technicalOwner": null,
+      "technicalOwnerEmail": null
+    },
+    "corsConfiguration": {
+      "corsConfigurationEnabled": false,
+      "accessControlAllowOrigins": [
+        "*"
+      ],
+      "accessControlAllowCredentials": false,
+      "accessControlAllowHeaders": [
+        "authorization",
+        "Access-Control-Allow-Origin",
+        "Content-Type",
+        "SOAPAction",
+        "apikey",
+        "testKey"
+      ],
+      "accessControlAllowMethods": [
+        "GET",
+        "PUT",
+        "POST",
+        "DELETE",
+        "PATCH",
+        "OPTIONS"
+      ]
+    },
+    "websubSubscriptionConfiguration": {
+      "secret": "",
+      "signingAlgorithm": "SHA-256",
+      "signatureHeader": "x-hub-signature"
+    },
+    "workflowStatus": null,
+    "createdTime": "2021-03-09 19:17:10.255",
+    "lastUpdatedTime": "2021-03-09 19:18:00.067",
+    "endpointConfig": {
+      "endpoint_type": "http",
+      "sandbox_endpoints": {
+        "url": "http://mi-runtime:8290/services/EmployeeDataService/"
+      },
+      "production_endpoints": {
+        "url": "http://mi-runtime:8290/services/EmployeeDataService/"
+      }
+    },
+    "endpointImplementationType": "ENDPOINT",
+    "scopes": [],
+    "operations": [
+      {
+        "id": "",
+        "target": "/employees",
+        "verb": "GET",
+        "authType": "Application & Application User",
+        "throttlingPolicy": "Unlimited",
+        "scopes": [],
+        "usedProductIds": [],
+        "amznResourceName": null,
+        "amznResourceTimeout": null,
+        "payloadSchema": null,
+        "uriMapping": null
+      },
+      {
+        "id": "",
+        "target": "/employees",
+        "verb": "POST",
+        "authType": "Application & Application User",
+        "throttlingPolicy": "Unlimited",
+        "scopes": [],
+        "usedProductIds": [],
+        "amznResourceName": null,
+        "amznResourceTimeout": null,
+        "payloadSchema": null,
+        "uriMapping": null
+      },
+      {
+        "id": "",
+        "target": "/employees/{id}",
+        "verb": "GET",
+        "authType": "Application & Application User",
+        "throttlingPolicy": "Unlimited",
+        "scopes": [],
+        "usedProductIds": [],
+        "amznResourceName": null,
+        "amznResourceTimeout": null,
+        "payloadSchema": null,
+        "uriMapping": null
+      },
+      {
+        "id": "",
+        "target": "/employees/{id}",
+        "verb": "PUT",
+        "authType": "Application & Application User",
+        "throttlingPolicy": "Unlimited",
+        "scopes": [],
+        "usedProductIds": [],
+        "amznResourceName": null,
+        "amznResourceTimeout": null,
+        "payloadSchema": null,
+        "uriMapping": null
+      },
+      {
+        "id": "",
+        "target": "/employees/{id}",
+        "verb": "DELETE",
+        "authType": "Application & Application User",
+        "throttlingPolicy": "Unlimited",
+        "scopes": [],
+        "usedProductIds": [],
+        "amznResourceName": null,
+        "amznResourceTimeout": null,
+        "payloadSchema": null,
+        "uriMapping": null
+      }
+    ],
+    "threatProtectionPolicies": null,
+    "categories": [],
+    "keyManagers": [
+      "all"
+    ],
+    "serviceInfo": null
+  }
