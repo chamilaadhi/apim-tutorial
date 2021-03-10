@@ -5,7 +5,7 @@ This repo contains resources that are needed to demo the API Manager 4.0.0 tutor
 ## Prerequisite
 
 - Java 8 or above
-- Docker and Docker compose
+- Docker and Docker compose (Allocate a minimum of 4 CPU cores and 4GB Memory for Docker resources)
   
 ### Build API Manager 4.0.0 docker image (Only till APIM 4.0.0 docker images are released)
 
