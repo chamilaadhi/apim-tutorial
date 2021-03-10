@@ -32,7 +32,7 @@ rate_and_comment(){
     
 }
 ## create and publish
-create_and_publish_api() {
+create_and_publish_train_schedule_api() {
 
     local api_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d @data.json https:///$apim:9443/api/am/publisher/v2/apis | jq -r '.id')
     local swagger=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F apiDefinition=@swagger.json https://$apim:9443/api/am/publisher/v2/apis/${api_id}/swagger | jq -r '.id')
@@ -52,7 +52,26 @@ create_and_publish_api() {
     echo $api_id
 }
 
-api_id=$(create_and_publish_api)
+## create and publish
+create_and_publish_train_location_api() {
+
+    local api_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d @data.json https://$apim:9443/api/am/publisher/v2/apis | jq -r '.id')
+    # TODO: commenting due to a bug https://github.com/wso2/product-apim/issues/10229
+    # local swagger=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F apiDefinition=@asyncapi.json https://$apim:9443/api/am/publisher/v2/apis/${api_id}/asyncapi | jq -r '.id')
+    local rev_id=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '{"description": "first revision"}' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/revisions | jq -r '.id')
+
+    #add image
+    local image_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F file=@icon.png https://$apim:9443/api/am/publisher/v2/apis/${api_id}/thumbnail | jq -r '.id')
+
+    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
+    local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
+    sleep 5
+    echo $api_id
+}
+
+# Create TrainSchedule API related resources 
+cd trainschedule/
+api_id=$(create_and_publish_train_schedule_api)
 
 # bob comment and rate the api
 bob_access_token=$(get_access_token 'bob@quantis.com' 'user123')
@@ -65,3 +84,10 @@ rate_and_comment $logan_access_token $api_id 4 "logan-comment"
 # sindy comment and rate the api
 sindy_access_token=$(get_access_token 'sindy@quantis.com' 'user123')
 rate_and_comment $sindy_access_token $api_id 5 "sindy-comment"
+
+cd ../trainlocation
+sleep 5
+
+# Create TrainLocation API related resources 
+api_id=$(create_and_publish_train_location_api)
+cd ../

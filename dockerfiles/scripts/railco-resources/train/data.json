@@ -1,7 +1,7 @@
 {
     "name":"RailCoTrainAPI",
     "description":null,
-    "context":"/t/railco.com/railco",
+    "context":"/railco",
     "version":"1.0.0",
     "provider":"jill@railco.com",
     "wsdlInfo":null,

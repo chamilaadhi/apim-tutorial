@@ -5,13 +5,13 @@ RUN apk --no-cache add curl jq
 COPY setup.sh /
 COPY tenant-creation.sh /
 RUN ["mkdir", "/quantis-resources"]
-COPY quantis-resources/* /quantis-resources/
+COPY quantis-resources/ /quantis-resources/
 
 RUN ["mkdir", "/gogo-resources"]
-COPY gogo-resources/* /gogo-resources/
+COPY gogo-resources/ /gogo-resources/
 
 RUN ["mkdir", "/railco-resources"]
-COPY railco-resources/* /railco-resources/
+COPY railco-resources/ /railco-resources/
 
 #CMD ["sh" ,"setup.sh"]
 RUN ["chmod", "+x", "/setup.sh"]

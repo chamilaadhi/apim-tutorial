@@ -1,7 +1,7 @@
 {
     "name": "QuantisTrainAPI",
     "description": "API to get Quantis train schedules",
-    "context": "/t/quantis.com/quantis-schedule",
+    "context": "/quantis-schedule",
     "version": "1.0.0",
     "provider": "andy@quantis.com",
     "responseCachingEnabled": false,
