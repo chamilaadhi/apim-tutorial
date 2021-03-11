@@ -12,6 +12,7 @@ services:
       - "8280:8280"
       - "8243:8243"
       - "9099:9099"
+      - "9021:9021"
       depends_on:
         mi-runtime:
           condition: service_healthy 
@@ -35,7 +36,7 @@ services:
       - "9201:9201"
       mem_limit: 512m
       mem_reservation: 128M
-      cpus: 0.5
+      cpus: 1
       depends_on:
         db:
           condition: service_healthy
