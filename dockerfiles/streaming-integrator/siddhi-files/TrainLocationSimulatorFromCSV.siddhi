@@ -1,16 +1,12 @@
-@App:name("TrainLocationSimulatorFromCSV")
-
-@App:description('Send events via WebSocket transport using JSON format')
-
-@source(type='file',
-dir.uri='file:///home/wso2carbon/wso2si-4.0.0-alpha/samples/artifacts/new',
-action.after.process='NONE',
-@map(type='csv'))
-define stream TrainLocationStream (lang double, lat double);
+@Source(type = 'http',
+        receiver.url='http://0.0.0.0:8006/location-source',
+        basic.auth.enabled='false',
+        @map(type='json'))
+define stream TrainLocationStream (lat double, lon double);
 
 @sink(type='websocket-server', host='0.0.0.0', port='8025',
 @map(type='json'))
-define stream TrainLocationAlertStream (lang double, lat double);
+define stream TrainLocationAlertStream (lat double, lon double);
 
 @info(name='query1') 
 from TrainLocationStream

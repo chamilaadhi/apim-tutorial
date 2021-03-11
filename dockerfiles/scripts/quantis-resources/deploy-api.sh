@@ -57,7 +57,7 @@ create_and_publish_train_location_api() {
 
     local api_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d @data.json https://$apim:9443/api/am/publisher/v2/apis | jq -r '.id')
     # TODO: commenting due to a bug https://github.com/wso2/product-apim/issues/10229
-    # local swagger=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F apiDefinition=@asyncapi.json https://$apim:9443/api/am/publisher/v2/apis/${api_id}/asyncapi | jq -r '.id')
+    # local asyncapidefintion=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F apiDefinition=@asyncapi.json https://$apim:9443/api/am/publisher/v2/apis/${api_id}/asyncapi | jq -r '.id')
     local rev_id=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '{"description": "first revision"}' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/revisions | jq -r '.id')
 
     #add image
