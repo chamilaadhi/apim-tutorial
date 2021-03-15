@@ -177,6 +177,8 @@ addUserWithRole "admin@quantis.com" "admin" "bob" "Internal/subscriber" "Interna
 addUserWithRole "admin@quantis.com" "admin" "logan" "Internal/subscriber" "Internal/everyone"
 addUserWithRole "admin@quantis.com" "admin" "sindy" "Internal/subscriber" "Internal/everyone"
 addUserWithRole "admin@quantis.com" "admin" "kate" "Internal/subscriber" "Internal/everyone"
+addUserWithRole "admin@quantis.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
+addUserWithRole "admin@quantis.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
 echo "Enable signup and workflow"
 enableSignup "admin@quantis.com" "admin"
 enableSingupWorkflow "admin@quantis.com" "admin"
@@ -191,6 +193,8 @@ echo "Adding sample users to coltrain.com domain"
 addUserWithRole "admin@coltrain.com" "admin" "bill" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@coltrain.com" "admin" "george" "Internal/subscriber" "Internal/everyone"
 addUserWithRole "admin@coltrain.com" "admin" "jenny" "Internal/subscriber" "schedule_admin"
+addUserWithRole "admin@coltrain.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
+addUserWithRole "admin@coltrain.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
 sleep 5
 ###
 echo "Creating tenant railco.com"
@@ -199,8 +203,12 @@ sleep 5
 echo "Adding sample users to railco.com domain"
 addUserWithRole "admin@railco.com" "admin" "jill" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@railco.com" "admin" "tom" "Internal/subscriber" "Internal/everyone"
+addUserWithRole "admin@railco.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
+addUserWithRole "admin@railco.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
 sleep 5
 
 echo "Adding sample users to super tenant"
 addUserWithRole "admin" "admin" "peter" "Internal/subscriber" "Internal/everyone"
+addUserWithRole "admin" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
+addUserWithRole "admin" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
 sleep 5
