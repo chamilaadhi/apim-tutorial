@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 public class TrainLocationSimulatorApplication extends SpringBootServletInitializer {
 	private static String URL = "http://si-runtime:8006/location-source";
-	private static List<List<String>> records = new ArrayList<>();
 	private static Random rand = new Random();
 	private static DecimalFormat df = new DecimalFormat("#.00000");
 
@@ -29,7 +28,7 @@ public class TrainLocationSimulatorApplication extends SpringBootServletInitiali
 		SpringApplication.run(TrainLocationSimulatorApplication.class);
 	}
 
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 5000, initialDelay=30000)
 	public static void publishEvents() {
 
 		RestTemplate restTemplate = new RestTemplate();

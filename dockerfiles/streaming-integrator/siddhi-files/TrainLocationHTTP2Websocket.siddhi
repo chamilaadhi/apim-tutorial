@@ -1,3 +1,6 @@
+@App:name("TrainLocationHTTP2Websocket")
+@App:description('Publish and receive data events processed within Siddhi to files in CSV default format.')
+
 @Source(type = 'http',
         receiver.url='http://0.0.0.0:8006/location-source',
         basic.auth.enabled='false',
