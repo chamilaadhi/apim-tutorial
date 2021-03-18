@@ -46,7 +46,7 @@ create_and_publish_train_schedule_api() {
     local content_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X POST -F file=@Quantis_Train_API_v1.pdf https://$apim:9443/api/am/publisher/v2/apis/${api_id}/documents/${documentId}/content | jq -r '.id')
 
 
-    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
+    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox","vhost" : "localhost", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
     sleep 5
     echo $api_id
@@ -63,7 +63,7 @@ create_and_publish_train_location_api() {
     #add image
     local image_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F file=@icon.png https://$apim:9443/api/am/publisher/v2/apis/${api_id}/thumbnail | jq -r '.id')
 
-    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
+    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "vhost" : "localhost", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
     sleep 5
     echo $api_id
