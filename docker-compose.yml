@@ -44,7 +44,7 @@ services:
       build: 
         context: ./dockerfiles/streaming-integrator/
         args:
-          - BASE_IMAGE=wso2/wso2si:4.0.0
+          - BASE_IMAGE=chamilaadhi/wso2si:4.0.0_alpha
       healthcheck:
         test: ["CMD", "nc", "-z","localhost", "9090"]
         interval: 10s
