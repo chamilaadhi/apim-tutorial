@@ -20,8 +20,7 @@ public class WishqueTelecomController {
                 "\t\t<class2nd>68</class2nd>\n" +
                 "\t\t<class3rd>54</class3rd>\n" +
                 "\t</class>\n" +
-                "\t<summary>201\n" +
-                "\t</summary>\n" +
+                "\t<summary>201</summary>\n" +
                 "</metrics>";
     }
 }

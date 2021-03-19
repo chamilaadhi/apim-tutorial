@@ -46,7 +46,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<outputDirectory>../../dockerfiles/backends/</outputDirectory>
-					<warName>telecom-backend</warName>
+					<warName>telecom-rest-service</warName>
 				</configuration>
 			</plugin>
 		</plugins>

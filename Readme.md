@@ -13,7 +13,7 @@ run following command to start the environment
 
     docker-compose up -d
 
-This will start WSO2 API Manager 4.0.0 and WSO2 MI 4.0.0 and a sample REST API backend.
+This will start WSO2 API Manager 4.0.0, WSO2 MI 4.0.0, WSO2 SI 4.0.0 and a sample REST API backend.
 
 To view the logs 
 

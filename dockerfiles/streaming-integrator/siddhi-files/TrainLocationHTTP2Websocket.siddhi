@@ -1,5 +1,6 @@
+@App:asyncAPI
 @App:name("TrainLocationHTTP2Websocket")
-@App:description('Publish and receive data events processed within Siddhi to files in CSV default format.')
+@App:description('Receive data events from a Location Simulator and expose them as Websocket server')
 
 @Source(type = 'http',
         receiver.url='http://0.0.0.0:8006/location-source',

@@ -5,19 +5,14 @@ services:
       healthcheck:
         test: ["CMD", "nc", "-z","localhost", "9443"]
         interval: 10s
-        start_period: 180s
-        retries: 20
+        start_period: 150s
+        retries: 25
       ports:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
       - "9099:9099"
       - "9021:9021"
-      depends_on:
-        mi-runtime:
-          condition: service_healthy 
-        si-runtime:
-          condition: service_healthy
       volumes:
       - ./dockerfiles/conf/apim:/home/wso2carbon/wso2-config-volume
     mi-runtime:
@@ -34,12 +29,25 @@ services:
       - "8253:8253"
       - "8290:8290"
       - "9201:9201"
-      mem_limit: 512m
+      mem_limit: 1G
       mem_reservation: 128M
       cpus: 1
       depends_on:
         db:
           condition: service_healthy
+        # for service-catalog  
+        api-manager:
+          condition: service_healthy
+      volumes:
+        - ~/mytmp/csvin:/home/wso2carbon/sample/in
+        - ~/mytmp/csvout:/home/wso2carbon/sample/out
+        - ~/mytmp/csverror:/home/wso2carbon/sample/error
+      environment:
+        # CATERING_BE : test
+        SMTP_HOST: <smtp_server_host>
+        SMTP_PORT: <smtp_server_port>
+        SMTP_USERNAME: <smtp_server_username>
+        SMTP_PASSWORD: <smtp_server_password>
     si-runtime:
       build: 
         context: ./dockerfiles/streaming-integrator/
@@ -56,6 +64,10 @@ services:
       mem_limit: 512m
       mem_reservation: 128M
       cpus: 0.5
+      depends_on: 
+        # for service-catalog  
+        api-manager:
+          condition: service_healthy
     backend-service:
       build: ./dockerfiles/backends/
       healthcheck:
@@ -67,7 +79,7 @@ services:
       - "8082:8080"
       mem_limit: 512m
       mem_reservation: 128M
-      cpus: 0.5
+      cpus: 1
     db:
       image: mysql:8.0.23
       ports:
@@ -80,10 +92,9 @@ services:
         MYSQL_DATABASE: mysql
       healthcheck:
         test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
-        interval: 30s
-        timeout: 60s
-        retries: 5
-        start_period: 80s
+        interval: 10s
+        retries: 20
+        start_period: 10s
       mem_limit: 512m
       mem_reservation: 128M
       cpus: 0.5
@@ -91,8 +102,11 @@ services:
       build: ./dockerfiles/scripts
       mem_limit: 256m
       mem_reservation: 128M
-      cpus: 0.25
+      cpus: 1
       environment:
         APIM_HOST : api-manager
         RETRY_SEC : 5
         RE_RUN: 'false'
+      depends_on:
+        api-manager:
+          condition: service_healthy

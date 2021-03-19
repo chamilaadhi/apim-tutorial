@@ -12,6 +12,5 @@ ARG CONFIG_FILE_PATH=${HOME}/configurations.yaml
 # copy bundles & jars to the siddhi-runner distribution
 COPY ${HOST_APPS_DIR}/ ${APPS}
 
-# copy csv to the sample file
-RUN mkdir ${WSO2_SERVER_HOME}/samples/artifacts/new
-COPY ./train_location.csv ${WSO2_SERVER_HOME}/samples/artifacts/new
+# copy deployment.yaml with service catalog configs
+COPY deployment.yaml ${WSO2_SERVER_HOME}/conf/server/

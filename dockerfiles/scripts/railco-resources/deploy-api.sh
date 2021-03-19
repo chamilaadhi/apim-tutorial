@@ -48,14 +48,15 @@ create_app_and_subscribe(){
 }
 
 cd train/
-
 api_id=$(create_and_publish_api)
+
+tom_access_token=$(get_access_token 'tom@railco.com' 'user123')
+create_app_and_subscribe 
 
 cd ../employee/
+create_and_publish_api
 
-api_id=$(create_and_publish_api)
-tom_access_token=$(get_access_token 'tom@railco.com' 'user123')
-
-create_app_and_subscribe 
+cd ../metrics/
+create_and_publish_api
 
 cd ../
