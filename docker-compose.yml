@@ -15,6 +15,11 @@ services:
       - "9021:9021"
       volumes:
       - ./dockerfiles/conf/apim:/home/wso2carbon/wso2-config-volume
+      depends_on:
+        mi-runtime:
+          condition: service_healthy
+        si-runtime:
+          condition: service_healthy
     mi-runtime:
       build: 
         context: ./dockerfiles/micro-integrator/
@@ -35,19 +40,16 @@ services:
       depends_on:
         db:
           condition: service_healthy
-        # for service-catalog  
-        api-manager:
-          condition: service_healthy
-      volumes:
-        - ~/mytmp/csvin:/home/wso2carbon/sample/in
-        - ~/mytmp/csvout:/home/wso2carbon/sample/out
-        - ~/mytmp/csverror:/home/wso2carbon/sample/error
+      # volumes:
+      #   - <SourceLocation>:/home/wso2carbon/sample
       environment:
-        # CATERING_BE : test
-        SMTP_HOST: <smtp_server_host>
-        SMTP_PORT: <smtp_server_port>
-        SMTP_USERNAME: <smtp_server_username>
-        SMTP_PASSWORD: <smtp_server_password>
+        CATERING_SERVICE_EP : http://www.urldoesnotexist.com
+      #   SMTP_HOST: <SMTP_Host>
+      #   SMTP_PORT: <SMTP_Port>
+      #   SMTP_USERNAME: <SMTP_Server_Username>
+      #   SMTP_PASSWORD: <SMTP_Server_Password>
+      #   EMAIL_TO: <To_Address>
+      #   EMAIL_FROM: <From_Address>
     si-runtime:
       build: 
         context: ./dockerfiles/streaming-integrator/
@@ -64,10 +66,6 @@ services:
       mem_limit: 512m
       mem_reservation: 128M
       cpus: 0.5
-      depends_on: 
-        # for service-catalog  
-        api-manager:
-          condition: service_healthy
     backend-service:
       build: ./dockerfiles/backends/
       healthcheck:
@@ -108,5 +106,4 @@ services:
         RETRY_SEC : 5
         RE_RUN: 'false'
       depends_on:
-        api-manager:
-          condition: service_healthy
+        - "api-manager"
