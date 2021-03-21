@@ -34,9 +34,6 @@ services:
       - "8253:8253"
       - "8290:8290"
       - "9201:9201"
-      mem_limit: 1G
-      mem_reservation: 128M
-      cpus: 1
       depends_on:
         db:
           condition: service_healthy
@@ -56,7 +53,7 @@ services:
         args:
           - BASE_IMAGE=chamilaadhi/wso2si:4.0.0_alpha
       healthcheck:
-        test: ["CMD", "nc", "-z","localhost", "9090"]
+        test: ["CMD", "nc", "-z","localhost", "9443"]
         interval: 10s
         start_period: 30s
         retries: 20

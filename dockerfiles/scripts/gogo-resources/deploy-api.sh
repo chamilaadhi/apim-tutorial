@@ -34,7 +34,7 @@ create_and_publish_passenger_api() {
     
     local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "vhost": "localhost" ,"displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
-    sleep 5
+    sleep 2
     echo $api_id
 }
 
@@ -51,7 +51,7 @@ create_and_publish_location_api() {
     
     local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Production and Sandbox", "vhost" : "localhost", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
-    sleep 5
+    sleep 2
     echo $api_id
 }
 

@@ -1,8 +1,5 @@
 package org.wso2.carbon.apimgt.tutorial.trainlocationsimulator;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -28,7 +25,7 @@ public class TrainLocationSimulatorApplication extends SpringBootServletInitiali
 		SpringApplication.run(TrainLocationSimulatorApplication.class);
 	}
 
-	@Scheduled(fixedRate = 5000, initialDelay=30000)
+	@Scheduled(fixedRate = 5000, initialDelay = 30000)
 	public static void publishEvents() {
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -44,7 +41,7 @@ public class TrainLocationSimulatorApplication extends SpringBootServletInitiali
 		map.put("lon", Double.parseDouble(df.format(rand.nextDouble() * -1)));
 		map.put("lat", Double.parseDouble(df.format(rand.nextDouble() + 50)));
 
-		System.out.println("Sending GPS coordinates : " + map.toString());
+		// System.out.println("Sending GPS coordinates : " + map.toString());
 
 		// build the request
 		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);

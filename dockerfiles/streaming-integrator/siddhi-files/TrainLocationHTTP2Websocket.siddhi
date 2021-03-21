@@ -17,5 +17,7 @@ from TrainLocationStream
 select *
 insert into TrainLocationAlertStream;
 
+/*
 from TrainLocationAlertStream#log('event')
 insert into LogStream;
+*/

@@ -170,7 +170,7 @@ function enableSingupWorkflow() {
 # create tenants
 echo "Creating tenant quantis.com"
 create_tenant "admin" "quantis.com" "admin@quantis.com"
-sleep 5
+sleep 3
 echo "Adding sample users to quantis.com domain"
 addUserWithRole "admin@quantis.com" "admin" "andy" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@quantis.com" "admin" "bob" "Internal/subscriber" "Internal/everyone"
@@ -182,11 +182,11 @@ addUserWithRole "admin@quantis.com" "admin" "devuser" "Internal/subscriber" "Int
 echo "Enable signup and workflow"
 enableSignup "admin@quantis.com" "admin"
 enableSingupWorkflow "admin@quantis.com" "admin"
-sleep 5
+sleep 3
 ###
 echo "Creating tenant coltrain.com"
 create_tenant "admin" "coltrain.com" "admin@coltrain.com"
-sleep 5
+sleep 3
 echo "Adding roles to coltrain.com domain"
 addRole "admin@coltrain.com" "admin" "schedule_admin"
 echo "Adding sample users to coltrain.com domain"
@@ -195,20 +195,20 @@ addUserWithRole "admin@coltrain.com" "admin" "george" "Internal/subscriber" "Int
 addUserWithRole "admin@coltrain.com" "admin" "jenny" "Internal/subscriber" "schedule_admin"
 addUserWithRole "admin@coltrain.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@coltrain.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
-sleep 5
+sleep 3
 ###
 echo "Creating tenant railco.com"
 create_tenant "admin" "railco.com" "admin@railco.com"
-sleep 5
+sleep 3
 echo "Adding sample users to railco.com domain"
 addUserWithRole "admin@railco.com" "admin" "jill" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@railco.com" "admin" "tom" "Internal/subscriber" "Internal/everyone"
 addUserWithRole "admin@railco.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@railco.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
-sleep 5
+sleep 3
 
 echo "Adding sample users to super tenant"
 addUserWithRole "admin" "admin" "peter" "Internal/subscriber" "Internal/everyone"
 addUserWithRole "admin" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
-sleep 5
+sleep 3
