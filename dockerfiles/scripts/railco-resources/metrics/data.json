@@ -40,8 +40,6 @@
     "visibleTenants": [],
     "endpointSecurity": null,
     "gatewayEnvironments": [],
-    "deploymentEnvironments": [],
-    "labels": [],
     "mediationPolicies": [],
     "subscriptionAvailability": "CURRENT_TENANT",
     "subscriptionAvailableTenants": [],

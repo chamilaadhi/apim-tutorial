@@ -43,8 +43,6 @@
     "gatewayEnvironments": [
         "Production and Sandbox"
     ],
-    "deploymentEnvironments": [],
-    "labels": [],
     "mediationPolicies": [],
     "subscriptionAvailability": "CURRENT_TENANT",
     "subscriptionAvailableTenants": [],

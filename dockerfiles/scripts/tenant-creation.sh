@@ -43,6 +43,25 @@ function addUserWithRole () {
             </soapenv:Envelope>' --write-out "%{http_code}\n" --silent --output /dev/null 
 }
 
+function addUserWith3Role () {
+    curl -k -X POST \
+            https://$apim:9443/services/UserAdmin \
+            -u $1:$2 \
+            -H 'Content-Type: text/xml' \
+            -H 'SOAPAction: "urn:addUser"' \
+            -d '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://org.apache.axis2/xsd" xmlns:xsd1="http://common.mgt.user.carbon.wso2.org/xsd">
+            <soapenv:Header/>
+            <soapenv:Body>
+                <xsd:addUser>
+                    <xsd:userName>'$3'</xsd:userName>
+                    <xsd:password>user123</xsd:password>
+                    <xsd:roles>'$4'</xsd:roles>
+                    <xsd:roles>'$5'</xsd:roles>
+                    <xsd:roles>'$6'</xsd:roles>
+                </xsd:addUser>
+            </soapenv:Body>
+            </soapenv:Envelope>' --write-out "%{http_code}\n" --silent --output /dev/null 
+}
 function addRole () {
     curl -k -X POST \
             https://$apim:9443/services/UserAdmin \
@@ -189,10 +208,11 @@ create_tenant "admin" "coltrain.com" "admin@coltrain.com"
 sleep 3
 echo "Adding roles to coltrain.com domain"
 addRole "admin@coltrain.com" "admin" "schedule_admin"
+addRole "admin@coltrain.com" "admin" "coltrain_employee"
 echo "Adding sample users to coltrain.com domain"
 addUserWithRole "admin@coltrain.com" "admin" "bill" "Internal/creator" "Internal/publisher"
-addUserWithRole "admin@coltrain.com" "admin" "george" "Internal/subscriber" "Internal/everyone"
-addUserWithRole "admin@coltrain.com" "admin" "jenny" "Internal/subscriber" "schedule_admin"
+addUserWith3Role "admin@coltrain.com" "admin" "george" "Internal/subscriber" "Internal/everyone" "coltrain_employee"
+addUserWith3Role "admin@coltrain.com" "admin" "jenny" "Internal/subscriber" "schedule_admin" "coltrain_employee"
 addUserWithRole "admin@coltrain.com" "admin" "apiprovider" "Internal/creator" "Internal/publisher"
 addUserWithRole "admin@coltrain.com" "admin" "devuser" "Internal/subscriber" "Internal/everyone"
 sleep 3
