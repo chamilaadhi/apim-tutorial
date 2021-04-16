@@ -7,17 +7,14 @@
     "lifeCycleStatus": "PUBLISHED",
     "wsdlInfo": null,
     "wsdlUrl": null,
-    "testKey": null,
     "responseCachingEnabled": false,
     "cacheTimeout": 300,
-    "destinationStatsEnabled": null,
     "hasThumbnail": null,
     "isDefaultVersion": false,
     "isRevision": false,
     "revisionedApiId": null,
     "revisionId": 0,
     "enableSchemaValidation": false,
-    "enableStore": true,
     "type": "WEBSUB",
     "transport": [
       "http",
@@ -38,14 +35,9 @@
     "visibility": "PUBLIC",
     "visibleRoles": [],
     "visibleTenants": [],
-    "endpointSecurity": null,
-    "gatewayEnvironments": [
-      "Production and Sandbox"
-    ],
     "mediationPolicies": [],
     "subscriptionAvailability": "CURRENT_TENANT",
     "subscriptionAvailableTenants": [],
-    "additionalProperties": {},
     "monetization": null,
     "accessControl": "NONE",
     "accessControlRoles": [],
@@ -54,29 +46,6 @@
       "businessOwnerEmail": null,
       "technicalOwner": null,
       "technicalOwnerEmail": null
-    },
-    "corsConfiguration": {
-      "corsConfigurationEnabled": false,
-      "accessControlAllowOrigins": [
-        "*"
-      ],
-      "accessControlAllowCredentials": false,
-      "accessControlAllowHeaders": [
-        "authorization",
-        "Access-Control-Allow-Origin",
-        "Content-Type",
-        "SOAPAction",
-        "apikey",
-        "testKey"
-      ],
-      "accessControlAllowMethods": [
-        "GET",
-        "PUT",
-        "POST",
-        "DELETE",
-        "PATCH",
-        "OPTIONS"
-      ]
     },
     "websubSubscriptionConfiguration": {
       "secret": "c5cd6f29da7d9b30b198c22dd66b3809",

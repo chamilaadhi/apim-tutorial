@@ -6,14 +6,12 @@
     "provider": "andy@quantis.com",
     "responseCachingEnabled": false,
     "cacheTimeout": 300,
-    "destinationStatsEnabled": null,
     "hasThumbnail": null,
     "isDefaultVersion": false,
     "isRevision": false,
     "revisionedApiId": null,
     "revisionId": 0,
     "enableSchemaValidation": false,
-    "enableStore": true,
     "type": "HTTP",
     "transport": [
         "http",
@@ -43,14 +41,9 @@
     "visibility": "PUBLIC",
     "visibleRoles": [],
     "visibleTenants": [],
-    "endpointSecurity": null,
-    "gatewayEnvironments": [
-        "Production and Sandbox"
-    ],
     "mediationPolicies": [],
     "subscriptionAvailability": "CURRENT_TENANT",
     "subscriptionAvailableTenants": [],
-    "additionalProperties": {},
     "monetization": null,
     "accessControl": "NONE",
     "accessControlRoles": [],
@@ -59,29 +52,6 @@
         "businessOwnerEmail": "andy@quantis.com",
         "technicalOwner": "Mary",
         "technicalOwnerEmail": "mary@quantis.com"
-    },
-    "corsConfiguration": {
-        "corsConfigurationEnabled": false,
-        "accessControlAllowOrigins": [
-            "*"
-        ],
-        "accessControlAllowCredentials": false,
-        "accessControlAllowHeaders": [
-            "authorization",
-            "Access-Control-Allow-Origin",
-            "Content-Type",
-            "SOAPAction",
-            "apikey",
-            "testKey"
-        ],
-        "accessControlAllowMethods": [
-            "GET",
-            "PUT",
-            "POST",
-            "DELETE",
-            "PATCH",
-            "OPTIONS"
-        ]
     },
     "websubSubscriptionConfiguration": {
         "secret": "",

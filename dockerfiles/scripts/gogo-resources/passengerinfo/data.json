@@ -7,14 +7,12 @@
     "lifeCycleStatus": "CREATED",
     "responseCachingEnabled": false,
     "cacheTimeout": 300,
-    "destinationStatsEnabled": null,
     "hasThumbnail": null,
     "isDefaultVersion": false,
     "isRevision": false,
     "revisionedApiId": null,
     "revisionId": 0,
     "enableSchemaValidation": false,
-    "enableStore": true,
     "type": "HTTP",
     "transport": [
         "http",
@@ -39,14 +37,9 @@
     "visibility": "PUBLIC",
     "visibleRoles": [],
     "visibleTenants": [],
-    "endpointSecurity": null,
-    "gatewayEnvironments": [
-        "Production and Sandbox"
-    ],
     "mediationPolicies": [],
     "subscriptionAvailability": "CURRENT_TENANT",
     "subscriptionAvailableTenants": [],
-    "additionalProperties": {},
     "monetization": null,
     "accessControl": "NONE",
     "accessControlRoles": [],
@@ -55,46 +48,6 @@
         "businessOwnerEmail": "admin@gogo.com",
         "technicalOwner": "Gogo",
         "technicalOwnerEmail": "admin@gogo.com"
-    },
-    "corsConfiguration": {
-        "corsConfigurationEnabled": false,
-        "accessControlAllowOrigins": [
-            "*"
-        ],
-        "accessControlAllowCredentials": false,
-        "accessControlAllowHeaders": [
-            "authorization",
-            "Access-Control-Allow-Origin",
-            "Content-Type",
-            "SOAPAction",
-            "apikey",
-            "testKey"
-        ],
-        "accessControlAllowMethods": [
-            "GET",
-            "PUT",
-            "POST",
-            "DELETE",
-            "PATCH",
-            "OPTIONS"
-        ]
-    },
-    "websubSubscriptionConfiguration": {
-        "secret": "",
-        "signingAlgorithm": "SHA-256",
-        "signatureHeader": "x-hub-signature"
-    },
-    "workflowStatus": null,
-    "createdTime": "2021-02-23 13:21:39.251",
-    "lastUpdatedTime": "2021-02-23 13:24:28.372",
-    "endpointConfig": {
-        "endpoint_type": "http",
-        "sandbox_endpoints": {
-            "url": "http://backend-service:8080/train-operations/v1"
-        },
-        "production_endpoints": {
-            "url": "http://backend-service:8080/train-operations/v1"
-        }
     },
     "endpointImplementationType": "ENDPOINT",
     "scopes": [],
