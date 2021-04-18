@@ -1,7 +1,7 @@
 version: '2.4'
 services:
     api-manager:
-      image: chamilaadhi/wso2am:4.0.0_rc1_a
+      image: chamilaadhi/wso2am:4.0.0_rc1
       healthcheck:
         test: ["CMD", "nc", "-z","localhost", "9443"]
         interval: 10s
