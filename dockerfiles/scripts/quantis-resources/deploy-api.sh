@@ -31,6 +31,12 @@ rate_and_comment(){
     local comment_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST -d @$4.json https://$apim:9443/api/am/devportal/v2/apis/$2/comments | jq -r '.id')
     
 }
+rate_and_comment_and_reply(){
+    local rating_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X PUT -d '{"rating":'$3'}' https://$apim:9443/api/am/devportal/v2/apis/$2/user-rating | jq -r '.ratingId')
+    local comment_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST -d @$4.json https://$apim:9443/api/am/devportal/v2/apis/$2/comments | jq -r '.id')
+    local reply=$(curl -k -H "Authorization: Bearer $5" -H "Content-Type: application/json" -X POST -d'{"content":"Thanks 😊","category":"general"}' https://$apim:9443/api/am/devportal/v2/apis/$2/comments?replyTo=$comment_id | jq -r '.id')
+
+}
 ## create and publish
 create_and_publish_train_schedule_api() {
 
@@ -81,9 +87,10 @@ rate_and_comment $bob_access_token $api_id 5 "bob-comment"
 logan_access_token=$(get_access_token 'logan@quantis.com' 'user123')
 rate_and_comment $logan_access_token $api_id 4 "logan-comment"
 
-# sindy comment and rate the api
+# sindy comment and rate the api and devuser replying to the comment
 sindy_access_token=$(get_access_token 'sindy@quantis.com' 'user123')
-rate_and_comment $sindy_access_token $api_id 5 "sindy-comment"
+dev_access_token=$(get_access_token 'devuser@quantis.com' 'user123')
+rate_and_comment_and_reply $sindy_access_token $api_id 5 "sindy-comment" $dev_access_token
 
 cd ../trainlocation
 sleep 2
