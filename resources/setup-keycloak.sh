@@ -33,6 +33,9 @@ curl -X POST http://$host:8080/auth/admin/realms/master/clients  -H 'Content-Typ
    "protocol":"openid-connect"
 }'
 
+## set token default timout to 1h
+curl http://$host:8080/auth/admin/realms/master -X PUT -H "Authorization: Bearer $access_token" -H 'Content-Type: application/json' -d '{"accessTokenLifespan":3600}'
+
 ## get client id
 client_id=$(curl -X GET http://$host:8080/auth/admin/realms/master/clients?clientId=$client_name -H 'Content-Type: application/json' -H "Authorization: Bearer $access_token" | jq -r '.[0]|.id')
 
