@@ -49,6 +49,15 @@
         "technicalOwner": "Gogo",
         "technicalOwnerEmail": "admin@gogo.com"
     },
+    "endpointConfig": {
+        "endpoint_type": "http",
+        "sandbox_endpoints": {
+            "url": "http://backend-service:8080/train-operations/v1"
+        },
+        "production_endpoints": {
+            "url": "http://backend-service:8080/train-operations/v1"
+        }
+    },
     "endpointImplementationType": "ENDPOINT",
     "scopes": [],
     "operations": [

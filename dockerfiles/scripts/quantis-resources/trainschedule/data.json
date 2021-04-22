@@ -28,6 +28,18 @@
         "Silver",
         "Unlimited"
     ],
+    "additionalProperties":[
+        {
+           "name":"slack_url",
+           "value":"https://wso2-apim.slack.com",
+           "display":true
+        },
+        {
+           "name":"github_repo",
+           "value":"https://github.com/wso2/product-apim",
+           "display":true
+        }
+     ],
     "apiThrottlingPolicy": null,
     "authorizationHeader": "Authorization",
     "securityScheme": [

@@ -16,7 +16,7 @@ EOF
 client_credentials=$(curl -k -u admin@quantis.com:admin -H "Content-Type: application/json" -d "$(client_request)" https://$apim:9443/client-registration/v0.17/register| jq -r '.clientId + ":" + .clientSecret')
 #echo $client_credentials
 get_access_token() {
-    local access_token=$(curl -k -d "grant_type=password&username=$1&password=$2&scope=apim:api_view apim:api_publish apim:api_create apim:subscribe" -u $client_credentials https://$apim:9443/oauth2/token | jq -r '.access_token')
+    local access_token=$(curl -k -d "grant_type=password&username=$1&password=$2&scope=apim:api_view apim:api_publish apim:api_create apim:subscribe apim:publisher_settings" -u $client_credentials https://$apim:9443/oauth2/token | jq -r '.access_token')
     echo $access_token
 }
 
@@ -26,10 +26,21 @@ echo $admin_access_token
 pub_access_token=$(get_access_token 'andy@quantis.com' 'user123')
 echo $pub_access_token
 
+get_vhost() {
+    local vhost=$(curl -k -H "Authorization: Bearer $admin_access_token" https:///$apim:9443/api/am/publisher/v2/settings | jq -r '.environment[0].vhosts[0].host')
+    echo $vhost
+}
+vhost=$(get_vhost)
 rate_and_comment(){
     local rating_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X PUT -d '{"rating":'$3'}' https://$apim:9443/api/am/devportal/v2/apis/$2/user-rating | jq -r '.ratingId')
     local comment_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST -d @$4.json https://$apim:9443/api/am/devportal/v2/apis/$2/comments | jq -r '.id')
     
+}
+rate_and_comment_and_reply(){
+    local rating_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X PUT -d '{"rating":'$3'}' https://$apim:9443/api/am/devportal/v2/apis/$2/user-rating | jq -r '.ratingId')
+    local comment_id=$(curl -k -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST -d @$4.json https://$apim:9443/api/am/devportal/v2/apis/$2/comments | jq -r '.id')
+    local reply=$(curl -k -H "Authorization: Bearer $5" -H "Content-Type: application/json" -X POST -d'{"content":"Thanks 😊","category":"general"}' https://$apim:9443/api/am/devportal/v2/apis/$2/comments?replyTo=$comment_id | jq -r '.id')
+
 }
 ## create and publish
 create_and_publish_train_schedule_api() {
@@ -46,7 +57,7 @@ create_and_publish_train_schedule_api() {
     local content_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X POST -F file=@Quantis_Train_API_v1.pdf https://$apim:9443/api/am/publisher/v2/apis/${api_id}/documents/${documentId}/content | jq -r '.id')
 
 
-    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Default","vhost" : "localhost", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
+    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Default","vhost" : "'$vhost'", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.[0].revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
     sleep 2
     echo $api_id
@@ -62,7 +73,7 @@ create_and_publish_train_location_api() {
     #add image
     local image_id=$(curl -k -H "Authorization: Bearer $pub_access_token" -H "multipart/form-data" -X PUT -F file=@icon.png https://$apim:9443/api/am/publisher/v2/apis/${api_id}/thumbnail | jq -r '.id')
 
-    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Default", "vhost" : "localhost", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.revisionUuid')
+    local revisionUuid=$( curl -k -H "Authorization: Bearer $pub_access_token" -H "Content-Type: application/json" -X POST -d '[{"name": "Default", "vhost" : "'$vhost'", "displayOnDevportal": true}]' https://$apim:9443/api/am/publisher/v2/apis/${api_id}/deploy-revision?revisionId=${rev_id} | jq -r '.[0].revisionUuid')
     local publish_api_status=$(curl -k -H "Authorization: Bearer $pub_access_token" -X POST "https://$apim:9443/api/am/publisher/v2/apis/change-lifecycle?apiId=${api_id}&action=Publish")
     sleep 2
     echo $api_id
@@ -80,9 +91,10 @@ rate_and_comment $bob_access_token $api_id 5 "bob-comment"
 logan_access_token=$(get_access_token 'logan@quantis.com' 'user123')
 rate_and_comment $logan_access_token $api_id 4 "logan-comment"
 
-# sindy comment and rate the api
+# sindy comment and rate the api and devuser replying to the comment
 sindy_access_token=$(get_access_token 'sindy@quantis.com' 'user123')
-rate_and_comment $sindy_access_token $api_id 5 "sindy-comment"
+dev_access_token=$(get_access_token 'devuser@quantis.com' 'user123')
+rate_and_comment_and_reply $sindy_access_token $api_id 5 "sindy-comment" $dev_access_token
 
 cd ../trainlocation
 sleep 2
