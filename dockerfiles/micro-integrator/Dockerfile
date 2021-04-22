@@ -5,7 +5,7 @@ FROM ${BASE_IMAGE}
 COPY carbonapps/RailCoEmployeeServicesCompositeExporter_1.0.0.car ${WSO2_SERVER_HOME}/repository/deployment/server/carbonapps/
 COPY carbonapps/RailCoCateringIntegrationCompositeExporter_1.0.0.car ${WSO2_SERVER_HOME}/repository/deployment/server/carbonapps/
 COPY carbonapps/RailCoTelecomMetricsIntegrationCompositeExporter_1.0.0-SNAPSHOT.car ${WSO2_SERVER_HOME}/repository/deployment/server/carbonapps/
-# # Uncomment when trying out Guaranteed Message Delivery Scenario
+# Uncomment when trying out Integration Connector Scenario
 # COPY carbonapps/RailCoFileEmailServiceCompositeExporter_1.0.0-SNAPSHOT.car ${WSO2_SERVER_HOME}/repository/deployment/server/carbonapps/
 
 # Copy jars

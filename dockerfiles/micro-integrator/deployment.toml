@@ -19,7 +19,7 @@ alias = "symmetric.key.value"
 algorithm = "AES"
 
 [[service_catalog]]
-apimHost = "https://api-manager:9443"
+apim_host = "https://api-manager:9443"
 enable = true
-userName = "jill@railco.com"
+username = "jill@railco.com"
 password = "user123"
